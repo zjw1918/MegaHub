@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mNavController: NavController
@@ -19,6 +20,13 @@ class MainActivity : AppCompatActivity() {
 
         mNavController = findNavController(R.id.nav_host_fragment)
         setupActionBarWithNavController(mNavController)
+
+
+        var loader: ClassLoader? = classLoader
+        while (loader != null) {
+            Timber.d("classLoader: $loader")
+            loader = loader.parent
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
