@@ -1,16 +1,16 @@
 package io.mega.megahub
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import io.mega.megahub.bean.LoadState
 import kotlinx.android.synthetic.main.fragment_main.*
 import timber.log.Timber
 import java.util.*
@@ -21,6 +21,7 @@ class MainFragment : Fragment() {
 //    private val args: MainFragmentArgs by navArgs()
 
     private lateinit var nameViewModel: NameViewModel
+    private lateinit var weatherViewModel: WeatherViewModel
     private val timer: Timer = Timer()
 
 
@@ -42,6 +43,9 @@ class MainFragment : Fragment() {
         }
 
         CounterManager.count.observe(this, counterObserver)
+
+        // weather viewModel
+        weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -54,6 +58,30 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        weatherViewModel.loadState.observe(this) {
+            when (it) {
+                is LoadState.Success -> {
+                    btn_fetch_weather.isEnabled = true
+                }
+                is LoadState.Loading -> btn_fetch_weather.isEnabled = false
+                is LoadState.Fail -> {
+                    btn_fetch_weather.isEnabled = true
+                    Toast.makeText(activity, it.msg, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        weatherViewModel.weatherData.observe(this) {
+            Timber.d(it.toString())
+            Toast.makeText(activity, "Shanghai Today min temp is ${it.consolidated_weather[0].min_temp}",
+                Toast.LENGTH_SHORT).show()
+        }
+
+        btn_fetch_weather.setOnClickListener {
+            weatherViewModel.getData()
+        }
+
         btn_go_first_fragment.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToFirstFragment("111", "title_111")
             findNavController().navigate(action)

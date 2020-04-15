@@ -1,5 +1,7 @@
 package io.mega.megahub.bean
 
+import java.util.*
+
 data class Weather(
     var id: Number,
 
@@ -22,7 +24,7 @@ data class Weather(
 
 data class WeatherResult(
     var consolidated_weather: List<Weather>,
-    var time: String,
+    var time: Date,
     var title: String,
     var woeid: Number
 )
