@@ -16,20 +16,19 @@ import timber.log.Timber
 import java.util.*
 import kotlin.random.Random
 
+private const val TAG = "MainFragment"
 class MainFragment : Fragment() {
-    companion object {
-        const val TAG = "MainFragment"
-    }
 //    private val args: MainFragmentArgs by navArgs()
 
-    private lateinit var model: NameViewModel
+    private lateinit var nameViewModel: NameViewModel
     private val timer: Timer = Timer()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        model = ViewModelProvider(this).get(NameViewModel::class.java)
+        nameViewModel = ViewModelProvider(this).get(NameViewModel::class.java)
+        Timber.d("Got a QuizViewModel: $nameViewModel")
 //
 //        val nameObserver = Observer<String> {newName ->
 //            tv_name.text = newName
@@ -39,7 +38,8 @@ class MainFragment : Fragment() {
 
         val counterObserver = Observer<Int> { count ->
             Timber.d("get count $count")
-            tv_name.text = "counter: $count" }
+            tv_name.text = "counter: $count"
+        }
 
         CounterManager.count.observe(this, counterObserver)
     }
@@ -68,6 +68,16 @@ class MainFragment : Fragment() {
                 }
             }, 0, 1000)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.d("onStop")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Timber.d("onSaveInstanceState")
     }
 
     override fun onDestroy() {
