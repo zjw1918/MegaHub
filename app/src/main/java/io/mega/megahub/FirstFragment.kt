@@ -21,20 +21,6 @@ class FirstFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        Timber.d("taskId: %s, title: %s", args.taskId, args.title)
-
-        return inflater.inflate(R.layout.fragment_first, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         weatherViewModel.loadState.observe(this) {
             when (it) {
@@ -54,11 +40,24 @@ class FirstFragment : Fragment() {
             Toast.makeText(activity, "Shanghai Today min temp is ${it.consolidated_weather[0].min_temp}",
                 Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        Timber.d("taskId: %s, title: %s", args.taskId, args.title)
+
+        return inflater.inflate(R.layout.fragment_first, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         btn_fetch_weather.setOnClickListener {
             weatherViewModel.getData()
         }
-
     }
 
 }
