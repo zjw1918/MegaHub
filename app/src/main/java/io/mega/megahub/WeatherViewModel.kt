@@ -17,7 +17,8 @@ class WeatherViewModel: ViewModel() {
         selfLaunch(
             {
                 loadState.value = LoadState.Loading()
-                weatherData.value = async { NetWorkService.apiService.getWeather(2151849) }.await()
+                val fetch1 = async { NetWorkService.apiService.getWeather(2151849) }
+                weatherData.value = fetch1.await()
                 loadState.value = LoadState.Success()
             },
             {

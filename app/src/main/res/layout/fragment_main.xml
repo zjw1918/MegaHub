@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainFragment">
+    tools:context=".pages.home.MainFragment">
 
     <Button
         android:text="计数"
@@ -15,6 +15,12 @@
     <Button
         android:text="导航"
         android:id="@+id/btn_go_first_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:text="天气"
+        android:id="@+id/btn_go_weather_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

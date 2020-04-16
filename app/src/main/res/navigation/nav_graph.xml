@@ -18,13 +18,23 @@
             android:name="title"
             app:argType="string" />
     </fragment>
+
     <fragment
         android:id="@+id/mainFragment"
-        android:name="io.mega.megahub.MainFragment"
+        android:name="io.mega.megahub.pages.home.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_firstFragment"
             app:destination="@id/firstFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/weatherFragment"
+        tools:layout="@layout/fragment_weather"
+        android:name="io.mega.megahub.pages.weather.WeatherFragment"
+        android:label="@string/fragment_weather_title" />
 </navigation>

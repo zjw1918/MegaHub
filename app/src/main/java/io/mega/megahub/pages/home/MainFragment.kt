@@ -1,4 +1,4 @@
-package io.mega.megahub
+package io.mega.megahub.pages.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import io.mega.megahub.*
 import io.mega.megahub.bean.LoadState
 import kotlinx.android.synthetic.main.fragment_main.*
 import timber.log.Timber
@@ -46,6 +47,9 @@ class MainFragment : Fragment() {
 
         // weather viewModel
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
+
+        // test room db
+
     }
 
     override fun onCreateView(
@@ -58,6 +62,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.d("onViewCreated")
 
         weatherViewModel.loadState.observe(this) {
             when (it) {
@@ -83,7 +88,17 @@ class MainFragment : Fragment() {
         }
 
         btn_go_first_fragment.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToFirstFragment("111", "title_111")
+            val action =
+                MainFragmentDirections.actionMainFragmentToFirstFragment(
+                    "111",
+                    "title_111"
+                )
+            findNavController().navigate(action)
+        }
+
+        btn_go_weather_fragment.setOnClickListener {
+            val action =
+                MainFragmentDirections.actionMainFragmentToWeatherFragment()
             findNavController().navigate(action)
         }
 

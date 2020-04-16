@@ -1,10 +1,11 @@
-package io.mega.megahub
+package io.mega.megahub.pages.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import io.mega.megahub.R
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 

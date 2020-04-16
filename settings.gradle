@@ -1,2 +1,3 @@
 rootProject.name='MegaHub'
 include ':app'
+include ':baselib'
