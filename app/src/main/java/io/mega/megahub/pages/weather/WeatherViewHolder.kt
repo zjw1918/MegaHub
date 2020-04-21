@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide
 import io.mega.megahub.R
 import io.mega.megahub.bean.Weather
 import java.text.SimpleDateFormat
-import java.util.*
 
 class WeatherViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
     private var mViewMap: SparseArray<View> = SparseArray()
@@ -32,6 +31,8 @@ class WeatherViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
         getView<TextView>(R.id.tv_item_weather_date).text = SimpleDateFormat("MM-dd E").format(w.applicable_date)
         val iv = getView<ImageView>(R.id.iv_item_weather_img)
         Glide.with(iv).load(getImgUrl(w.weather_state_abbr)).into(iv)
-        getView<TextView>(R.id.tv_item_weather_temp).text = "${w.max_temp.toInt()}/${w.min_temp.toInt()}"
+        getView<TextView>(R.id.tv_item_weather_temp).text =
+            itemView.context.resources.getString(R.string.item_weather_temp_max_min,
+                w.max_temp.toInt(), w.min_temp.toInt())
     }
 }

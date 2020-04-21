@@ -63,4 +63,7 @@ dependencies {
 
     // pull to refresh
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+
+    // BaseRecyclerViewAdapterHelper
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'
 }

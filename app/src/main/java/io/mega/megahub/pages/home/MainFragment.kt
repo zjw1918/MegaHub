@@ -43,11 +43,11 @@ class MainFragment : Fragment() {
 //        model.currentName.observe(this, nameObserver)
 
         val counterObserver = Observer<Int> { count ->
-            Timber.d("get count $count")
             tv_name.text = "counter: $count"
         }
 
         CounterManager.count.observe(this, counterObserver)
+//        CounterManager.count.observeForever(counterObserver) // 里面不要更新ui
 
         // weather viewModel
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
