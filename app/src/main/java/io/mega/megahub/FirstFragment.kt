@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
@@ -16,6 +17,7 @@ import timber.log.Timber
 class FirstFragment : Fragment() {
     private val args: FirstFragmentArgs by navArgs()
     private lateinit var weatherViewModel: WeatherViewModel
+    private lateinit var foreverObserver: Observer<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,12 @@ class FirstFragment : Fragment() {
             Toast.makeText(activity, "Shanghai Today min temp is ${it.consolidated_weather[0].min_temp}",
                 Toast.LENGTH_SHORT).show()
         }
+
+
+        foreverObserver = Observer<Int> {
+            Timber.d("FirstFragment get count $it")
+        }
+        CounterManager.count.observeForever(foreverObserver)
     }
 
     override fun onCreateView(
@@ -58,6 +66,11 @@ class FirstFragment : Fragment() {
         btn_fetch_weather.setOnClickListener {
             weatherViewModel.getData()
         }
+    }
+
+    override fun onDestroy() {
+        CounterManager.count.removeObserver(foreverObserver)
+        super.onDestroy()
     }
 
 }

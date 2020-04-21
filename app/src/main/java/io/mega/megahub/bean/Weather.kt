@@ -8,8 +8,8 @@ data class Weather(
     var weather_state_name: String,
     var weather_state_abbr: String,
     var wind_direction_compass: String,
-    var created: String,
-    var applicable_date: String,
+    var created: Date,
+    var applicable_date: Date,
 
     var min_temp: Number,
     var max_temp: Number,
