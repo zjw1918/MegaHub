@@ -18,10 +18,20 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+            storeFile file("mykey.jks")
+            storePassword "megaadmin"
+            keyAlias "megaandroid"
+            keyPassword "megaadmin"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
@@ -42,4 +52,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation project(path: ':baselib')
+
+    // 引入andfix热修复
+    implementation 'com.alipay.euler:andfix:0.5.0@aar'
 }

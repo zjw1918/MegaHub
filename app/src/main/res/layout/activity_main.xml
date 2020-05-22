@@ -25,5 +25,4 @@
         android:layout_height="wrap_content"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
-
 </LinearLayout>
